@@ -1,5 +1,5 @@
 pub mod file {
-  use crate::afdn::{Node, NodeVec, LAMBDA};
+  use crate::afdn::{afn::LAMBDA, Node, NodeVec};
   use std::{collections::HashMap, fs};
 
   /// # ParsedFile
@@ -159,4 +159,42 @@ pub mod file {
       is_afd: !is_afdn,
     }
   }
+}
+
+use std::io;
+/// Exibe o menu de escolha (para salvar o arquivo dot)
+///
+/// ## Arguments
+/// - `word` - Palavra até agora
+///
+/// ## Examples
+///
+/// ```rust
+/// let option:u8 = menu(); // returns 0 or 1 (save)
+/// ```
+pub fn menu(word: String) -> u8 {
+  debug!("Show menu");
+  let line = "-".repeat(100);
+  println!("{}\n\t\t\t\t\tAnimador de AFN/AFD\n{}", &line, &line);
+  println!("Deseja gerar um arquivo do estado atual? [0/1] \n*Caso 1 , irá gerar um arquivo do estado atual.\n");
+  println!("Palavra até agora: {}", word);
+
+  debug!("Reading input");
+  let mut buffer = String::new();
+  io::stdin()
+    .read_line(&mut buffer)
+    .expect("Não foi possível reconhecer o caracter de entrada 😔. Saindo...");
+
+  buffer = buffer.trim().to_string();
+  debug!("Parsing input: Buffer is <{}>", &buffer);
+  let input = match buffer.parse::<u8>() {
+    Ok(val) => val,
+    Err(err) => panic!(
+      "Houve um problema ao realizar o parse para int. Erro: {}",
+      err
+    ),
+  };
+
+  debug!("Returning values");
+  input
 }

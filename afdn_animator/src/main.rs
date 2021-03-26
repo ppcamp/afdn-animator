@@ -9,7 +9,7 @@ use util::file;
 
 fn main() {
     // configure loggers
-    std::env::set_var("RUST_LOG", "INFO");
+    std::env::set_var("RUST_LOG", "DEBUG");
     env_logger::init();
 
     // parse args
@@ -21,13 +21,13 @@ fn main() {
     debug!("Filename: {:#?}", filename);
 
     // parsed informations
-    let infos = file::parse(filename);
+    let infos = file::parse(&filename);
     debug!("{:#?}", &infos);
 
     if *infos.is_afd() {
         debug!("IT is an AFD");
         // é um afd, então roda o padrão
-        if afdn::run_afd(&infos) {
+        if afdn::afd::run(&infos) {
             // caso tenha percorrido a palavra e, esta, possa ser representada pelo afd
             println!("Sucesso 😊");
         } else {
@@ -36,5 +36,10 @@ fn main() {
     } else {
         // é um afn, então roda outro algoritmo (recursivo)
         debug!("IT is an AFN");
+        if afdn::afn::run(&infos) {
+            println!("Sucesso 😊");
+        } else {
+            println!("Erro 😔");
+        }
     }
 }

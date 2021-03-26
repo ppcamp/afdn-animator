@@ -21,6 +21,7 @@ TODO: do jeito que está atualmente, só aceita AFD.
   - [Programas necessários](#programas-necessários)
   - [Imagens geradas](#imagens-geradas)
     - [AFD](#afd)
+    - [AFN](#afn)
   - [Referências](#referências)
 
 
@@ -91,7 +92,7 @@ Uma outra característica do **AFN**, é que ele pode ter a mesma aída (arestas
   <img src="./img/afn_exemplo_1-41.png"
     width="300px"
   />
-  <h5 align="center">Exemplo 1.41 do livro</h5>
+  <h5 align="center">Exemplo 1.41 do livro. baaba</h5>
 </p>
 
 <p align="center">
@@ -146,6 +147,12 @@ O arquivo dot gerado irá conter todo o grafo, alterando apenas a cor (posição
 
 ### Atalhos shell
 ```bash
+# dev build
+cargo build
+
+# Production build
+cargo build --release
+
 # limpa a pasta dot/
 ./clear_outputs
 
@@ -201,7 +208,7 @@ sudo apt install build-essential imagemagick graphviz
 ### AFD
 <p align="center">
   <img
-    src="./img/out/output.gif"
+    src="./img/out/afd_enunciado.gif"
     width="400px"
   />
   <h4 align="center">
@@ -226,6 +233,28 @@ sudo apt install build-essential imagemagick graphviz
   />
   <h4 align="center">
     Exemplo 1.11. Palavra: aba
+  </h4>
+</p>
+
+### AFN
+
+<p align="center">
+  <img
+    src="./img/out/afn_exemplo_1-41.gif"
+    width="400px"
+  />
+  <h4 align="center">
+    Exemplo 1.41. Palavra: baaba
+  </h4>
+</p>
+
+<p align="center">
+  <img
+    src="./img/out/afn_exemplo_1-41.gif"
+    width="400px"
+  />
+  <h4 align="center">
+    Exemplo da internet. Palavra: 0011
   </h4>
 </p>
 
