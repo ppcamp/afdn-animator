@@ -237,3 +237,94 @@ pub fn run_afd(infos: &ParsedFile) -> bool {
     return false;
   }
 }
+
+pub fn run_afn(infos: &ParsedFile) -> bool {
+  debug!("Running AFN...");
+
+  let word: Vec<String> = infos
+    .get_word()
+    .chars()
+    .collect::<Vec<char>>()
+    .iter()
+    .map(|e| e.to_string())
+    .collect();
+  debug!("Splitted the word into vec of chars");
+
+  let mut pos: usize = 0;
+  let mut flag: bool;
+  let mut current_state: String = infos.get_initial_state().to_string();
+
+  debug!("Start walking");
+  while pos < word.len() {
+    debug!("\n\t [Word {} is valid]", word[0..pos].join(""));
+    // obtêm todos os estados alcançáveis
+    let possible = infos.states.get(&current_state).unwrap();
+
+    let mut node_to_color = String::new();
+    let mut edge_to_color = String::new();
+
+    // flag de aceito
+    flag = false;
+    debug!("\t - Walking over all possibilities");
+    for p in possible {
+      if word[pos] == p.character {
+        // aceita, continua a busca pela palavra
+        flag = true;
+        // consome a letra
+        pos += 1;
+
+        debug!(
+          "\t -- State: {} => Matched {}",
+          &current_state, &p.character
+        );
+
+        // altera o valor dos locais para colorir
+        node_to_color = current_state.clone();
+        edge_to_color = p.character.clone();
+
+        // muda para o próximo estado
+        let next_state = p.destination.to_string();
+        debug!("\t -- Next state: {}", &next_state);
+        current_state = next_state;
+        // sai deste for
+        break;
+      }
+    }
+    // ocorreu um erro durante o percurso do afd/afn
+    if !flag {
+      eprintln!(
+        "Palavra {} inválida. Válida até {}. Char de conflito {}",
+        infos.get_word(),
+        word[0..pos].join(""),
+        word[pos]
+      );
+      return false;
+    }
+
+    // exibe menu
+    loop {
+      debug!("\t - Showing menu");
+      let option: u8 = menu(word[0..pos].join(""));
+      if option == 1 {
+        self::save_dot_file(
+          infos,
+          &node_to_color,
+          &edge_to_color,
+          &format!("./dot/dotfile_{}.dot", pos),
+        );
+        // exit this loop
+        break;
+      } else if option == 0 {
+        break;
+      }
+    }
+  }
+
+  // se atingiu um estado final
+  if infos.get_finish_state().contains(&current_state) {
+    return true;
+  } else {
+    // caso contrário, não aceita a palavra
+    return false;
+  }
+}

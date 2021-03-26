@@ -9,7 +9,7 @@ use util::file;
 
 fn main() {
     // configure loggers
-    std::env::set_var("RUST_LOG", "DEBUG");
+    std::env::set_var("RUST_LOG", "INFO");
     env_logger::init();
 
     // parse args

@@ -19,6 +19,8 @@ TODO: do jeito que está atualmente, só aceita AFD.
     - [Atalhos shell](#atalhos-shell)
     - [Instalação e configuração no LINUX](#instalação-e-configuração-no-linux)
   - [Programas necessários](#programas-necessários)
+  - [Imagens geradas](#imagens-geradas)
+    - [AFD](#afd)
   - [Referências](#referências)
 
 
@@ -58,13 +60,6 @@ um único símbolo de entrada
   />
   <h5 align="center">Exemplo 1.11 do livro</h5>
 </p>
-<p align="center">
-  <img src="./img/afd_exemplo_1-31.png"
-    width="500px"
-  />
-  <h5 align="center">Exemplo 1.31 do livro</h5>
-</p>
-
 
 ### 2. AFN
 #### 2.1 Definição
@@ -92,9 +87,25 @@ Uma outra característica do **AFN**, é que ele pode ter a mesma aída (arestas
 
 #### 2.2 Exemplos
 
+<p align="center">
+  <img src="./img/afn_exemplo_1-41.png"
+    width="300px"
+  />
+  <h5 align="center">Exemplo 1.41 do livro</h5>
+</p>
 
+<p align="center">
+  <img src="./img/afn_exemplo.png"
+    width="500px"
+  />
+  <h5 align="center">Exemplo retirado da <a href="http://eaulas.usp.br/portal/video.action?idItem=17134">internet</a></h5>
+</p>
 
 ## Exemplo de um arquivo de entrada
+
+Um arquivo de entrada deverá ser formatado como o código abaixo. Isso implica em dizer, que deverá haver
+espaços separando símbolos/estados.
+
 <pre>
 s0 ; s2
 s0 a > s0
@@ -122,7 +133,7 @@ O arquivo dot gerado irá conter todo o grafo, alterando apenas a cor (posição
 
 <p align="center">
   <img
-    src="./img/enunciado_exemplo.png"
+    src="./img/exemplo_enunciado.png"
     width="500px"
   />
   <h4 align="center">
@@ -184,6 +195,39 @@ sudo apt install build-essential imagemagick graphviz
   ```
 - [Imagemagick](https://imagemagick.org/index.php)
 
+
+## Imagens geradas
+
+### AFD
+<p align="center">
+  <img
+    src="./img/out/output.gif"
+    width="400px"
+  />
+  <h4 align="center">
+    Exemplo do enunciado. Palavra: aabb
+  </h4>
+</p>
+
+<p align="center">
+  <img
+    src="./img/out/afd_exemplo_1-9.gif"
+    width="400px"
+  />
+  <h4 align="center">
+    Exemplo 1.9. Palavra: 0000110
+  </h4>
+</p>
+
+<p align="center">
+  <img
+    src="./img/out/afd_exemplo_1-11.gif"
+    width="400px"
+  />
+  <h4 align="center">
+    Exemplo 1.11. Palavra: aba
+  </h4>
+</p>
 
 <br/>
 <br/>
