@@ -1,0 +1,23 @@
+digraph G {
+	rankdir=LR;
+	overlap=scale;
+	sep=0.1;
+	pad=1;
+	nodesep=0.5;
+	ranksep=1;
+
+	node [style="rounded,filled"]
+	edge [color="gray"]
+
+	s2 [peripheries=2]
+
+	start [label= "", shape=none,height=.0,width=.0]
+	start -> s0
+
+	s0 [color="#467050", fontcolor="white"]	s2 -> s2 [label="b"]
+	s2 -> s2 [label="a"]
+	s1 -> s2 [label="b"]
+	s1 -> s1 [label="a"]
+	s0 -> s1 [label="b", color="#ad2a2a"]
+	s0 -> s0 [label="a"]
+}
