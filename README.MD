@@ -250,7 +250,7 @@ sudo apt install build-essential imagemagick graphviz
 
 <p align="center">
   <img
-    src="./img/out/afn_exemplo_1-41.gif"
+    src="./img/out/afn_exemplo.gif"
     width="400px"
   />
   <h4 align="center">
