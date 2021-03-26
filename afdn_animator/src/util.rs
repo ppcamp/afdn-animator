@@ -10,6 +10,7 @@ pub mod file {
     finish_states: Vec<String>,
     pub states: HashMap<String, NodeVec>,
     word: String,
+    is_afd: bool,
   }
   impl ParsedFile {
     pub fn get_initial_state(&self) -> &String {
@@ -20,6 +21,9 @@ pub mod file {
     }
     pub fn get_word(&self) -> &String {
       &self.word
+    }
+    pub fn is_afd(&self) -> &bool {
+      &self.is_afd
     }
   }
 
@@ -80,6 +84,7 @@ pub mod file {
 
     // obtém os estados e suas transições
     debug!("Creating the hashmap");
+    let mut is_afdn = false;
     let mut afdn: HashMap<String, NodeVec> = HashMap::new();
     debug!("Iterating over states:");
     for line_index in 1..max {
@@ -102,14 +107,31 @@ pub mod file {
       if afdn.contains_key(&current_node) {
         debug!("\t - Already exists. Adding new node");
         let mut cvec: NodeVec = afdn.get(&current_node).unwrap().to_vec();
-        // realiza um "sort" a medida que vai inserindo, garantido que o estado com lambda sempre seja o último
+
+        // checa se é um AFN (símbolo Lambda ou repetidos)
         if character != LAMBDA.to_string() {
-          // se não for lambda, insere no início
           cvec.insert(0, new_node);
+
+          // precisa checar se já é AFDN, para evitar sobrescrever a flag
+          if !is_afdn {
+            debug!("\t - Checking if is AFDN...");
+            // se não for afdn ainda, faz um map e confere se tem chave duplicada.
+            let repeated: Vec<String> = cvec.iter().map(|e| e.character.to_string()).collect();
+            debug!("\t - Repeated_vector {:#?}", &repeated);
+            is_afdn = repeated
+              .iter()
+              .enumerate()
+              // analisa do ponto atual para frente, i.e, se no futuro irá existir um elemento igual/repetido
+              .any(|(index, word)| repeated[index + 1..].contains(&word));
+
+            debug!("\t - Is it an AFDN? R.: {:?}", is_afdn);
+          }
         } else {
-          // se for lambda, insere no fim
+          // se for lambda, insere no fim e muda para um AFD
+          is_afdn = true;
           cvec.push(new_node);
         }
+
         debug!("\t - Updated nodes: {:?}", cvec);
         afdn.insert(current_node, cvec);
       } else {
@@ -134,6 +156,7 @@ pub mod file {
       finish_states: end_states,
       word,
       states: afdn,
+      is_afd: !is_afdn,
     }
   }
 }

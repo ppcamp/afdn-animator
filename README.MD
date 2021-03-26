@@ -1,8 +1,17 @@
 # Animador de AFDs
 
+TODO: do jeito que está atualmente, só aceita AFD.
+
 **Sumário:**
 
 - [Animador de AFDs](#animador-de-afds)
+  - [Definição de um AF](#definição-de-um-af)
+    - [1. AFD](#1-afd)
+      - [1.1 Definição](#11-definição)
+      - [1.2 Exemplos](#12-exemplos)
+    - [2. AFN](#2-afn)
+      - [2.1 Definição](#21-definição)
+      - [2.2 Exemplos](#22-exemplos)
   - [Exemplo de um arquivo de entrada](#exemplo-de-um-arquivo-de-entrada)
   - [Considerações](#considerações)
   - [Exemplo de um grafo de saída](#exemplo-de-um-grafo-de-saída)
@@ -10,11 +19,80 @@
     - [Atalhos shell](#atalhos-shell)
     - [Instalação e configuração no LINUX](#instalação-e-configuração-no-linux)
   - [Programas necessários](#programas-necessários)
+  - [Referências](#referências)
 
 
 <br/>
 <br/>
 <br/>
+
+## Definição de um AF
+
+### 1. AFD
+#### 1.1 Definição
+Segundo <cite>Sipser</cite> [[1](#sipser)], um automâto finito determinístico é dado por uma quíntupla $(Q,\Sigma,\delta,q_0,F)$,
+onde:
+- Q é um *set* finito de estados
+- $\Sigma$ é um *set* finito de símbolos (alfabeto)
+- $\delta: Q \times \Sigma \rightarrow Q$ é a função de transição (que relaciona estados utilizando os símbolos)
+- $q_0 \in Q$ é o estado inicial
+- $F \subseteq Q$ é o *set* de estados aceitáveis (finais)
+
+Resumidamente, isso implica que todo AFD deverá "consumir" o
+símbolo durante a transição, de forma que, caso não o faça, será
+inválido.
+
+Note que, de acordo com a definição, somente é possível existir
+um único símbolo de entrada
+
+#### 1.2 Exemplos
+<p align="center">
+  <img src="./img/afd_exemplo_1-9.png"
+    width="500px"
+  />
+  <h5 align="center">Exemplo 1.9 do livro</h5>
+</p>
+<p align="center">
+  <img src="./img/afd_exemplo_1-11.png"
+    width="500px"
+  />
+  <h5 align="center">Exemplo 1.11 do livro</h5>
+</p>
+<p align="center">
+  <img src="./img/afd_exemplo_1-31.png"
+    width="500px"
+  />
+  <h5 align="center">Exemplo 1.31 do livro</h5>
+</p>
+
+
+### 2. AFN
+#### 2.1 Definição
+
+Usando a definição do livro:
+> A ***nondeterministic finite automaton*** is a 5-tuple $(Q,\Sigma, \delta, q_0, F)$ where:
+> 1. Q is a finite set of states,
+> 2. $\Sigma$ is a finite alphabet,
+> 3. $\delta: Q\times \Sigma_\epsilon \rightarrow P(Q)$ is the transition function,
+> 4. $q_0\in Q$ is the starte state, and
+> 5. $F \subseteq Q$ is the set of accept states.
+>
+> -- <cite>Sipser</cite> [[1](#sipser)]
+
+Novamente, isto implica em dizer que haverá apenas **um único
+estado inicial**.
+
+Note que poderá existir uma transição $\lambda$ - ou $\epsilon$,
+de acordo com o autor -, essa transição implica em dizer que
+irá ocorrer a transição de estados, entretanto, **não irá ocorrer
+o consumo** imediato da chave.
+
+Uma outra característica do **AFN**, é que ele pode ter a mesma aída (arestas) para dois, ou mais, nós distintos.
+
+
+#### 2.2 Exemplos
+
+
 
 ## Exemplo de um arquivo de entrada
 <pre>
@@ -32,7 +110,7 @@ wrd : aabb
 
 ## Considerações
 
-1. O programa deve elaborar o AFD e AFN equivalente a esta entrada e então, analisar a palavra, também definida no arquivo.
+1. O programa deve elaborar o **AFD** e **AFN** equivalente a esta entrada e então, analisar a palavra, também definida no arquivo.
 2. O simulador vai executar passo a passo, i.e, uma transição por vez
 3. Antes de passar ao próximo passo, o simulador poderá gerar um arquivo dot com base no estado atual.
 4. A ferramenta deverá ser por **linha de comando**, onde irá aceitar um arquivo como parâmetro.
@@ -105,3 +183,15 @@ sudo apt install build-essential imagemagick graphviz
   }
   ```
 - [Imagemagick](https://imagemagick.org/index.php)
+
+
+<br/>
+<br/>
+
+---
+
+<!-- Referências e links -->
+## Referências
+
+<i id="sipser"></i>
+1. Introduction to the theory of computation. Michael Sipser. 2ª ed. 2005. MIT. Thomsom. ISBN 0-534-95097-3.

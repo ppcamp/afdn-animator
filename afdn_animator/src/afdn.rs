@@ -10,11 +10,22 @@ pub struct Node {
 pub type NodeVec = Vec<Node>;
 use std::io;
 
-fn menu() -> u8 {
+/// Exibe o menu de escolha (para salvar o arquivo dot)
+///
+/// ## Arguments
+/// - `word` - Palavra até agora
+///
+/// ## Examples
+///
+/// ```rust
+/// let option:u8 = menu(); // returns 0 or 1 (save)
+/// ```
+fn menu(word: String) -> u8 {
   debug!("Show menu");
   let line = "-".repeat(100);
   println!("{}\n\t\t\t\t\tAnimador de AFN/AFD\n{}", &line, &line);
   println!("Deseja gerar um arquivo do estado atual? [0/1] \n*Caso 1 , irá gerar um arquivo do estado atual.\n");
+  println!("Palavra até agora: {}", word);
 
   debug!("Reading input");
   let mut buffer = String::new();
@@ -123,10 +134,9 @@ fn save_dot_file(
   }
 }
 
-/// Anda sobre o afd/afn.
+/// Anda sobre o afd.
 /// Considerações:
 /// - Assume-se que somente haverá **um único** estado inicial.
-/// - Assume-se que o lambda sempre será contemplado no último estado.
 ///
 /// ## Arguments
 ///
@@ -137,7 +147,7 @@ fn save_dot_file(
 /// ```rust
 /// let resultado:bool = run(&infos); // true or false
 /// ```
-pub fn run(infos: &ParsedFile) -> bool {
+pub fn run_afd(infos: &ParsedFile) -> bool {
   debug!("Running afd...");
 
   let word: Vec<String> = infos
@@ -166,18 +176,12 @@ pub fn run(infos: &ParsedFile) -> bool {
     flag = false;
     debug!("\t - Walking over all possibilities");
     for p in possible {
-      if p.character == LAMBDA.to_string() {
-        // aceita, continua a busca pela palavra
-        flag = true;
-      } else if word[pos] == p.character {
+      if word[pos] == p.character {
         // aceita, continua a busca pela palavra
         flag = true;
         // consome a letra
         pos += 1;
-      }
 
-      // se foi marcado em um if anterior
-      if flag {
         debug!(
           "\t -- State: {} => Matched {}",
           &current_state, &p.character
@@ -209,7 +213,7 @@ pub fn run(infos: &ParsedFile) -> bool {
     // exibe menu
     loop {
       debug!("\t - Showing menu");
-      let option: u8 = menu();
+      let option: u8 = menu(word[0..pos].join(""));
       if option == 1 {
         self::save_dot_file(
           infos,
