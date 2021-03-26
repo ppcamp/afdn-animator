@@ -13,15 +13,15 @@ fn main() {
     env_logger::init();
 
     // parse args
-    let args: Vec<String> = std::env::args().collect();
-    if args.len() < 2 {
-        panic!("Você deve passar um arquivo de entrada");
-    }
-    let filename: &String = &args[1];
-    debug!("Filename: {:#?}", filename);
+    // let args: Vec<String> = std::env::args().collect();
+    // if args.len() < 2 {
+    //     panic!("Você deve passar um arquivo de entrada");
+    // }
+    // let filename: &String = &args[1];
+    // debug!("Filename: {:#?}", filename);
 
     // parsed informations
-    let infos = file::parse(&filename);
+    let infos = file::parse(&"./inputs/afn_exemplo.txt".to_string());
     debug!("{:#?}", &infos);
 
     if *infos.is_afd() {

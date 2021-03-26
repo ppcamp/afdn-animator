@@ -276,11 +276,11 @@ pub mod afn {
       let nodes = infos.states.get(origin).unwrap();
       debug!("#Graph -\t ChildrenNodes: {:#?}", &nodes);
 
-      for node in nodes {
+      for (i, node) in nodes.iter().enumerate() {
         // configura a cor e label das arestas
         let mut additional_configs: String = format!("[label=\"{}\"", &node.character);
 
-        if (origin == node_to_color) && (node.character == edge_to_color.to_string()) {
+        if (origin == node_to_color) && (i == edge_to_color) {
           additional_configs = format!("{}, color=\"#ad2a2a\"", &additional_configs).to_string();
         }
         additional_configs = format!("{}]", &additional_configs);
@@ -359,11 +359,16 @@ pub mod afn {
         path = Some(pt);
 
         // muda para o próximo estado
-        let (found, _) = self::afn_walking(word, curr_pos, &next_state, infos, path.clone());
+        let (found, all_path) = self::afn_walking(word, curr_pos, &next_state, infos, path.clone());
         debug!("{}Backed: Curr_pos {:#?}", self::pad(curr_pos), curr_pos);
         if found {
           debug!("\t{}-- *FOUND* the word. It matches", self::pad(curr_pos),);
-          return (true, path);
+          return (true, all_path);
+        } else {
+          // como adicionou antes de decer, é necessário remover antes de continuar
+          let mut pt = path.unwrap();
+          pt.pop();
+          path = Some(pt);
         }
       } else if word[curr_pos] == p.character {
         // consome a letra
