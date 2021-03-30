@@ -140,9 +140,14 @@ pub mod file {
       }
     }
 
-    // obtém a palavra a ser testada
+    // obtém a última linha e divide com base no char ":"
     let word: Vec<&str> = file_in_lines.last().unwrap().trim().split(":").collect();
-    let word: String = word.last().unwrap().trim().to_string();
+    let word: String = match word.len() {
+      // obtém a palavra a ser testada
+      2 => word.last().unwrap().trim().to_string(),
+      // se não houver nada, significa que o estado é o próprio inicial, i.e, palavra vazia
+      _ => String::from(""),
+    };
 
     debug!("Initial states: {:#?}", &initial_states);
     debug!("Finish states:  {:#?}", &end_states);

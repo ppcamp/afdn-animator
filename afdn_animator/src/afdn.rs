@@ -112,6 +112,14 @@ pub mod afd {
   /// ```
   pub fn run(infos: &ParsedFile) -> bool {
     debug!("Running afd...");
+    debug!("+ Creating the first dot file");
+    self::save_dot_file(
+      infos,
+      // os dois valores abaixo são para posições que nunca irão existir, dessa forma, nunca será colorido
+      &"".to_string(),
+      &"".to_string(),
+      &format!("./dot/dotfile_{}.dot", "00"),
+    );
 
     let word: Vec<String> = infos
       .get_word()
@@ -423,6 +431,15 @@ pub mod afn {
   /// ```
   pub fn run(infos: &ParsedFile) -> bool {
     debug!("Running AFN...");
+
+    debug!("+ Creating the first dot file");
+    self::save_dot_file(
+      infos,
+      // os dois valores abaixo são para posições que nunca irão existir, dessa forma, nunca será colorido
+      &"".to_string(),
+      10000,
+      &format!("./dot/dotfile_{}.dot", "00"),
+    );
 
     let word: Vec<String> = infos
       .get_word()

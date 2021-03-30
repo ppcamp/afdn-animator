@@ -92,7 +92,7 @@ Uma outra característica do **AFN**, é que ele pode ter a mesma aída (arestas
   <img src="./img/afn_exemplo_1-41.png"
     width="300px"
   />
-  <h5 align="center">Exemplo 1.41 do livro. baaba</h5>
+  <h5 align="center">Exemplo 1.41 do livro.</h5>
 </p>
 
 <p align="center">
@@ -138,7 +138,7 @@ O arquivo dot gerado irá conter todo o grafo, alterando apenas a cor (posição
     width="500px"
   />
   <h4 align="center">
-    Figura 1 - Imagem ilustrativa do grafo de saída
+    Imagem ilustrativa do grafo de saída
   </h4>
 </p>
 
@@ -146,6 +146,28 @@ O arquivo dot gerado irá conter todo o grafo, alterando apenas a cor (posição
 ## Comandos úteis
 
 ### Atalhos shell
+
+* Como rodar algum programa:
+
+```bash
+# executando um arquivo de exemplo sobre a pasta inputs ...
+# ... dentro da pasta afdn_animator (pasta com os códigos), digite
+./target/release/afdn_animator ./inputs/default.txt
+
+# em seguida, gere as imagens com base nos arquivos dots, dentro da pasta ...
+# ... o jeito mais rápido é digitar
+./to_file
+
+# por fim, caso seja necessário (ou vá rodar outro teste), remova os arquivos antigos
+./clear_outputs
+```
+> Note que a build atual foi feita no LINUX e PARA O LINUX, portanto, caso use windows,
+> será necessário realizar a build de produção novamente
+
+> Note também que, os scripts foram feitos para o bash, dessa forma, caso utilize-os no windows
+> ou terá que ser feita uma adaptação para arquivos .bat ou utilizar o WSL2
+
+* Outros comandos úteis:
 ```bash
 # dev build
 cargo build
@@ -176,6 +198,8 @@ sudo apt install build-essential imagemagick graphviz
 ## Programas necessários
 - [Graphviz](https://graphviz.org/)
   - [Documentação da linguagem dot](https://graphviz.org/pdf/dotguide.pdf)
+
+  Exemplo de um arquivo dot gerado
   ```dot
   digraph G {
     rankdir=LR;
@@ -255,6 +279,16 @@ sudo apt install build-essential imagemagick graphviz
   />
   <h4 align="center">
     Exemplo da internet. Palavra: 0011
+  </h4>
+</p>
+
+<p align="center">
+  <img
+    src="./img/out/afn_exemplo_1-41_2.gif"
+    width="400px"
+  />
+  <h4 align="center">
+    Exemplo 1.41. Palavra: vazia
   </h4>
 </p>
 

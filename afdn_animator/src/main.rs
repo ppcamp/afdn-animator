@@ -8,8 +8,8 @@ use std;
 use util::file;
 
 fn main() {
-    // configure loggers
-    std::env::set_var("RUST_LOG", "DEBUG");
+    // configure loggers (se for DEBUG ao invés de INFO, irá mostrar mais informações)
+    std::env::set_var("RUST_LOG", "INFO");
     env_logger::init();
 
     // parse args
